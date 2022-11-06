@@ -4,7 +4,7 @@
   let instructionsPart = document.getElementById("instructions");
   let youtube = document.getElementById("youtube");
 
-function IDArrayAndContent(){
+function IdArrayAndContent(){
  
  let arr = [titleOfRecipe, mealPicture, ingredientsPart, instructionsPart, youtube];
 
@@ -23,10 +23,9 @@ function getAxios() {
       let mealPic = recipe.strMealThumb;
       let youtubeLink = recipe.strYoutube;
       let allIngredients = [];
-  
-     ;
       let anchor = document.createElement("a");
       let img = document.createElement("img");
+    console.log(recipe);
      
     
       instructionsPart.innerHTML = recipe.strInstructions;
@@ -36,12 +35,6 @@ function getAxios() {
       mealPicture.append(img);
 
       anchor.setAttribute("href", youtubeLink, "target", "_blank");
-
-      if (recipe.strYoutube) {
-        anchor.innerHTML = "Watch Tutorial";
-      } else {
-        anchor.innerHTML = "Cannot play, skip to the rest";
-      }
       
       for (let i = 1; i < 20; i++) {
           let ingredient = recipe[`strMeasure${i}`] + " "  + recipe[`strIngredient${i}`];
@@ -49,7 +42,7 @@ function getAxios() {
             if (ingredient.length > 2) {
                  allIngredients.push(ingredient);
              }
-      };
+      }
 
 
       for (let i = 0; i < allIngredients.length; i++) {
@@ -62,12 +55,21 @@ function getAxios() {
       }
     })
 }
+    function videoLink(recipe){
+     
+    if (recipe.strYoutube) {
+        anchor.innerHTML = "Watch Tutorial";
+      } else {
+        anchor.innerHTML = "Cannot play, skip to the rest";
+      }
+ }
 
 let newRecipe = document.getElementById('newRecipe');
 newRecipe.addEventListener("click", newMeal)
 
 
 function newMeal() {
-  IDArrayAndContent();
+  IdArrayAndContent();
   getAxios();
+  videoLink();
 };
